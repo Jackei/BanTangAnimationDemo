@@ -23,6 +23,7 @@
 		6B3002DC1C118DE500BB4763 /* TextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B3002CC1C118DE500BB4763 /* TextViewController.m */; };
 		6B3002DD1C118DE500BB4763 /* UITableView+ZoomHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B3002CE1C118DE500BB4763 /* UITableView+ZoomHeader.m */; };
 		6B3002DE1C118DE500BB4763 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B3002D01C118DE500BB4763 /* ViewController.m */; };
+		6B3002EE1C130BAD00BB4763 /* CustomPopAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B3002ED1C130BAD00BB4763 /* CustomPopAnimation.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -74,6 +75,8 @@
 		6B3002CE1C118DE500BB4763 /* UITableView+ZoomHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+ZoomHeader.m"; sourceTree = "<group>"; };
 		6B3002CF1C118DE500BB4763 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		6B3002D01C118DE500BB4763 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		6B3002EC1C130BAD00BB4763 /* CustomPopAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomPopAnimation.h; sourceTree = "<group>"; };
+		6B3002ED1C130BAD00BB4763 /* CustomPopAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomPopAnimation.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -171,6 +174,8 @@
 			children = (
 				6B3002C51C118DE500BB4763 /* CustomAnimator.h */,
 				6B3002C61C118DE500BB4763 /* CustomAnimator.m */,
+				6B3002EC1C130BAD00BB4763 /* CustomPopAnimation.h */,
+				6B3002ED1C130BAD00BB4763 /* CustomPopAnimation.m */,
 			);
 			name = Animation;
 			sourceTree = "<group>";
@@ -357,6 +362,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6B3002EE1C130BAD00BB4763 /* CustomPopAnimation.m in Sources */,
 				6B3002D81C118DE500BB4763 /* CustomAnimator.m in Sources */,
 				6B3002D61C118DE500BB4763 /* BaseNavigationView.m in Sources */,
 				6B3002D91C118DE500BB4763 /* CustomCell.m in Sources */,
@@ -592,6 +598,7 @@
 				6B3002951C116B1600BB4763 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		6B3002961C116B1600BB4763 /* Build configuration list for PBXNativeTarget "BanTangAnimationDemoTests" */ = {
 			isa = XCConfigurationList;
@@ -600,6 +607,7 @@
 				6B3002981C116B1600BB4763 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		6B3002991C116B1600BB4763 /* Build configuration list for PBXNativeTarget "BanTangAnimationDemoUITests" */ = {
 			isa = XCConfigurationList;
@@ -608,6 +616,7 @@
 				6B30029B1C116B1600BB4763 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

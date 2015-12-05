@@ -9,12 +9,16 @@
 #import "TextViewController.h"
 #import "CustomCell.h"
 #import "UITableView+ZoomHeader.h"
+#import "CustomPopAnimation.h"
 
 static NSString * const cellIdentifier = @"cellIdentifier";
 
 @interface TextViewController () <UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate,UINavigationControllerDelegate>
 
 @property (nonatomic,strong) UITableView *tableView;
+
+@property (nonatomic,strong) CustomPopAnimation *animator;
+@property (nonatomic,strong) UIPercentDrivenInteractiveTransition *interactivePopTransition;
 
 @end
 
@@ -36,9 +40,59 @@ static NSString * const cellIdentifier = @"cellIdentifier";
 {
     [super viewDidLoad];
     
+    self.animator = [[CustomPopAnimation alloc] init];
     self.baseNavigationView.alpha = 0;
     
+    UIScreenEdgePanGestureRecognizer *popRecognizer = [[UIScreenEdgePanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePopRecognizer:)];
+    popRecognizer.edges = UIRectEdgeLeft;
+    [self.view addGestureRecognizer:popRecognizer];
+    
     [self performSelector:@selector(reloadData) withObject:nil afterDelay:1];
+}
+
+- (void)handlePopRecognizer:(UIScreenEdgePanGestureRecognizer*)recognizer
+{
+    CGFloat progress = [recognizer translationInView:self.view].x / (self.view.bounds.size.width * 1.0);
+    progress = MIN(1.0, MAX(0.0, progress));
+    
+    if (recognizer.state == UIGestureRecognizerStateBegan)
+    {
+        self.interactivePopTransition = [[UIPercentDrivenInteractiveTransition alloc] init];
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+    else if (recognizer.state == UIGestureRecognizerStateChanged)
+    {
+        [self.interactivePopTransition updateInteractiveTransition:progress];
+    }
+    else if (recognizer.state == UIGestureRecognizerStateEnded || recognizer.state == UIGestureRecognizerStateCancelled)
+    {
+        if (progress > 0.5) {
+            [self.interactivePopTransition finishInteractiveTransition];
+        }
+        else {
+            [self.interactivePopTransition cancelInteractiveTransition];
+        }
+        
+        self.interactivePopTransition = nil;
+    } 
+}
+
+- (id<UIViewControllerInteractiveTransitioning>)navigationController:(UINavigationController *)navigationController interactionControllerForAnimationController:(id<UIViewControllerAnimatedTransitioning>)animationController
+{
+    if ([animationController isKindOfClass:[CustomPopAnimation class]])
+    {
+        return self.interactivePopTransition;
+    }
+    return nil;
+}
+
+- (id<UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController animationControllerForOperation:(UINavigationControllerOperation)operation fromViewController:(UIViewController *)fromVC toViewController:(UIViewController *)toVC
+{
+    if (operation == UINavigationControllerOperationPop)
+    {
+        return self.animator;
+    }
+    return nil;
 }
 
 - (void)reloadData
