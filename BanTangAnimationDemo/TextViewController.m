@@ -12,13 +12,25 @@
 
 static NSString * const cellIdentifier = @"cellIdentifier";
 
-@interface TextViewController () <UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate>
+@interface TextViewController () <UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate,UINavigationControllerDelegate>
 
 @property (nonatomic,strong) UITableView *tableView;
 
 @end
 
 @implementation TextViewController
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    self.navigationController.delegate = self;
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    self.navigationController.delegate = nil;
+}
 
 - (void)viewDidLoad
 {

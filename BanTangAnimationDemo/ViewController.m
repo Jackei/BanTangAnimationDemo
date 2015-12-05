@@ -18,15 +18,23 @@
     CustomAnimator *animator;
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    self.navigationController.delegate = self;
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    self.navigationController.delegate = nil;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
     [self.imageView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imageViewDidClick)]];
-    
-    self.navigationController.delegate = self;
-    self.navigationController.interactivePopGestureRecognizer.delegate=(id)self;
-    
 
     animator = [[CustomAnimator alloc] init];
 }
