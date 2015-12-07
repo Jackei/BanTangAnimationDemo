@@ -12,6 +12,7 @@
 #import "CustomPopAnimation.h"
 
 static NSString * const cellIdentifier = @"cellIdentifier";
+static CGFloat padding = 20.0f;
 
 @interface TextViewController () <UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate,UINavigationControllerDelegate>
 
@@ -72,7 +73,6 @@ static NSString * const cellIdentifier = @"cellIdentifier";
         else {
             [self.interactivePopTransition cancelInteractiveTransition];
         }
-        
         self.interactivePopTransition = nil;
     } 
 }
@@ -98,7 +98,37 @@ static NSString * const cellIdentifier = @"cellIdentifier";
 - (void)reloadData
 {
     [self.tableView reloadData];
+    
+    [UIView animateWithDuration:0.5 animations:^{
+        
+        self.tableView.frame = CGRectMake(0, _imageView.frame.size.height-padding, self.view.frame.size.width, CGRectGetHeight(self.view.frame)-_imageView.frame.size.height+padding);
+        
+    } completion:^(BOOL finished) {
+        
+        [UIView animateWithDuration:0.2 animations:^{
+            
+            self.tableView.frame = CGRectMake(0, _imageView.frame.size.height, self.view.frame.size.width, CGRectGetHeight(self.view.frame)-_imageView.frame.size.height);
+            
+        } completion:^(BOOL finished) {
+            
+            UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, _imageView.frame.size.height)];
+            [view addSubview:_imageView];
+            [_tableView addZoomHeader:view];
+            self.tableView.frame = self.view.bounds;
+
+        }];
+        
+    }];
+    
+
+    
+    [UIView commitAnimations];
     [self.view bringSubviewToFront:self.baseNavigationView];
+}
+
+- (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag
+{
+    NSLog(@"123");
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -145,13 +175,13 @@ static NSString * const cellIdentifier = @"cellIdentifier";
 {
     if (_tableView == nil)
     {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, self.view.frame.size.height)];
         [_tableView registerClass:[CustomCell class] forCellReuseIdentifier:cellIdentifier];
         _tableView.delegate = self;
         _tableView.dataSource = self;
-        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, _imageView.frame.size.height)];
-        [view addSubview:_imageView];
-        [_tableView addZoomHeader:view];
+//        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, _imageView.frame.size.height)];
+//        [view addSubview:_imageView];
+//        [_tableView addZoomHeader:view];
         [self.view addSubview:_tableView];
     }
     return _tableView;
