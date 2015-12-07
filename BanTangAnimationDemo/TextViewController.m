@@ -119,10 +119,7 @@ static CGFloat padding = 20.0f;
         }];
         
     }];
-    
-
-    
-    [UIView commitAnimations];
+        
     [self.view bringSubviewToFront:self.baseNavigationView];
 }
 
